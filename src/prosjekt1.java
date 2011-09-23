@@ -10,16 +10,9 @@ public class prosjekt1 extends JFrame {
 		setLayout( layout);
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.insets = new Insets (2,2,2,2);
-	    JLabel label1;
+	        JLabel label1;
 		label1 = new JLabel("Her trenger vi litt mer innhold...");
 		add(label1);
-		
-		
-		JLabel label2;
-		label2 = new JLabel("File");
-		constraints.gridx = 0;
-		constraints.gridy = 0;
-		add(label2);
 		
 		pack();
 		setVisible (true);
