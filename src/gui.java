@@ -1,4 +1,5 @@
 import java.awt.*;
+import javax.swing.JPanel;
 import javax.swing.*;
 
 
@@ -10,7 +11,7 @@ public class gui extends JFrame {
 		GridBagLayout layout = new GridBagLayout();
 		setLayout( layout);
 		GridBagConstraints constraints = new GridBagConstraints();
-			    
+		
 		
 		// Menubar
 		JMenuBar bar = new JMenuBar();
@@ -88,7 +89,8 @@ public class gui extends JFrame {
 			helpMenu.add(aboutItem);
 		
 		bar.add(helpMenu);
-				
+
+		
 		pack();
 		setVisible (true);
 	}
