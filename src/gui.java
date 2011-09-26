@@ -15,8 +15,6 @@ public class gui extends JFrame {
 		GridBagConstraints constraints = new GridBagConstraints();
 		setLayout( layout);
 		
-		
-		
 		// Menubar
 		JMenuBar bar = new JMenuBar();
 		setJMenuBar(bar);
