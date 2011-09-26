@@ -3,20 +3,24 @@ import javax.swing.JPanel;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 
-
+/** Class gui. Creates the window with file-menus and buttons
+ * @author Jon Arne Westgaard
+ */
 public class gui extends JFrame {
 	public gui() {
-		super ("gui");
-		
+		super ("GridBagLayout editor");
+	
 		// Set layout
 		GridBagLayout layout = new GridBagLayout();
-		setLayout( layout);
 		GridBagConstraints constraints = new GridBagConstraints();
+		setLayout( layout);
+		
 		
 		
 		// Menubar
 		JMenuBar bar = new JMenuBar();
 		setJMenuBar(bar);
+		layout.setConstraints (bar, constraints);
 		
 		// Filemenu
 		JMenu fileMenu = new JMenu ("File");
@@ -103,9 +107,42 @@ public class gui extends JFrame {
 			aboutItem.setMnemonic('A');
 			aboutItem.setToolTipText("Information about the application");
 			helpMenu.add(aboutItem);
-		
+			
 		bar.add(helpMenu);
 
+		// Menubar
+		JToolBar ikoner = new JToolBar ();
+		ikoner.add (Box.createHorizontalGlue());
+		ikoner.addSeparator();
+		JButton newButton = new JButton(new ImageIcon("NEW.GIF"));
+		newButton.setToolTipText("Create new file, remove existing data");
+		JButton loadButton = new JButton(new ImageIcon("OPENDOC.GIF"));
+		loadButton.setToolTipText("Load a previously saved file");
+		JButton saveButton = new JButton(new ImageIcon("SAVE.GIF"));
+		saveButton.setToolTipText("Save this layout to a file");
+		JButton previewButton = new JButton(new ImageIcon("ExecuteProject.gif"));
+		previewButton.setToolTipText("Show this layout in a preview window");
+		JButton generateButton = new JButton(new ImageIcon("SAVEJAVA.GIF"));
+		generateButton.setToolTipText("Show this layout in a preview window");
+		JButton newrowButton = new JButton(new ImageIcon("NEWROW.GIF"));
+		newrowButton.setToolTipText("Add a new row/layout to this layout");
+		JButton moveupButton = new JButton(new ImageIcon("MoveRowUp.gif"));
+		moveupButton.setToolTipText("Move row up");
+		JButton movedownButton = new JButton(new ImageIcon("MoveRowDown.gif"));
+		movedownButton.setToolTipText("Move row down");
+		JButton aboutButton = new JButton(new ImageIcon("HELP.GIF"));
+		aboutButton.setToolTipText("Help on using this software");
+		ikoner.add(newButton);
+		ikoner.add(loadButton);
+		ikoner.add(saveButton);
+		ikoner.add(previewButton);
+		ikoner.add(generateButton);
+		ikoner.add(newrowButton);
+		ikoner.add(moveupButton);
+		ikoner.add(movedownButton);
+		ikoner.add(aboutButton);
+		ikoner.setLayout(layout);
+		add (ikoner);
 		
 		pack();
 		setVisible (true);
