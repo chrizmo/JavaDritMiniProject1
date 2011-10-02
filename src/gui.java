@@ -1,5 +1,4 @@
 import java.awt.*;
-import javax.swing.JPanel;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 
@@ -9,127 +8,123 @@ import java.awt.event.KeyEvent;
 public class gui extends JFrame {
 	public gui() {
 		super ("GridBagLayout editor");
-	
-		// Set layout
-		GridBagLayout layout = new GridBagLayout();
-		GridBagConstraints constraints = new GridBagConstraints();
-		setLayout( layout);
 		
+		
+	
+				
 		// Menubar
 		JMenuBar bar = new JMenuBar();
 		setJMenuBar(bar);
-		layout.setConstraints (bar, constraints);
+		
 		
 		// Filemenu
-		JMenu fileMenu = new JMenu ("File");
+		JMenu fileMenu = new JMenu (prosjekt1.getMessages().getString("file"));
 		fileMenu.setMnemonic('F');
-		fileMenu.setToolTipText("File related operations");
+		fileMenu.setToolTipText(prosjekt1.getMessages().getString("filettt"));
 		
 			// Filemenu items
-			JMenuItem newItem = new JMenuItem("New", new ImageIcon("NEW.GIF"));
+			JMenuItem newItem = new JMenuItem(prosjekt1.getMessages().getString("new"), new ImageIcon("NEW.GIF"));
 			newItem.setMnemonic('N');
-			newItem.setToolTipText("Create new file, remove existing data");
+			newItem.setToolTipText(prosjekt1.getMessages().getString("newttt"));
 			
 			fileMenu.add(newItem);
 		
-			JMenuItem loadItem = new JMenuItem("Load", new ImageIcon("OPENDOC.GIF"));
+			JMenuItem loadItem = new JMenuItem(prosjekt1.getMessages().getString("load"), new ImageIcon("OPENDOC.GIF"));
 			loadItem.setMnemonic('L');
-			loadItem.setToolTipText("Load a previously saved file");
+			loadItem.setToolTipText(prosjekt1.getMessages().getString("loadttt"));
 			fileMenu.add(loadItem);
 			
-			JMenuItem saveItem = new JMenuItem("Save", new ImageIcon("SAVE.GIF"));
+			JMenuItem saveItem = new JMenuItem(prosjekt1.getMessages().getString("save"), new ImageIcon("SAVE.GIF"));
 			saveItem.setMnemonic('S');
-			saveItem.setToolTipText("Save this layout to a file");
+			saveItem.setToolTipText(prosjekt1.getMessages().getString("savettt"));
 			fileMenu.add(saveItem);
 			
-			JMenuItem saveasItem = new JMenuItem("Save as", new ImageIcon("SAVEJAVA.GIF"));
+			JMenuItem saveasItem = new JMenuItem(prosjekt1.getMessages().getString("saveas"), new ImageIcon("SAVEJAVA.GIF"));
 			saveasItem.setMnemonic(KeyEvent.VK_A);
-			saveasItem.setToolTipText("Save this layout to a file other than the active one");
+			saveasItem.setToolTipText(prosjekt1.getMessages().getString("saveasttt"));
 			fileMenu.add(saveasItem);
 			
 			fileMenu.addSeparator();
 			
-			JMenuItem previewItem = new JMenuItem("Preview");
+			JMenuItem previewItem = new JMenuItem(prosjekt1.getMessages().getString("preview"));
 			previewItem.setMnemonic('P');
-			previewItem.setToolTipText("Show this layout in a preview window");
+			previewItem.setToolTipText(prosjekt1.getMessages().getString("previewttt"));
 			fileMenu.add(previewItem);
 			
-			JMenuItem generateItem = new JMenuItem("Generate Java code", new ImageIcon("SAVEJAVA.GIF"));
+			JMenuItem generateItem = new JMenuItem(prosjekt1.getMessages().getString("genjava"), new ImageIcon("SAVEJAVA.GIF"));
 			generateItem.setMnemonic(KeyEvent.VK_J);
-			generateItem.setToolTipText("Write the Java code for this layout to file");
+			generateItem.setToolTipText(prosjekt1.getMessages().getString("genjavattt"));
 			fileMenu.add(generateItem);
 			
 			fileMenu.addSeparator();
 			
-			JMenuItem exitItem = new JMenuItem("Exit");
+			JMenuItem exitItem = new JMenuItem(prosjekt1.getMessages().getString("exit"));
 			exitItem.setMnemonic('E');
-			exitItem.setToolTipText("Terminate the program");
+			exitItem.setToolTipText(prosjekt1.getMessages().getString("exitttt"));
 			fileMenu.add(exitItem);
 			
 			bar.add(fileMenu);
 
 		// Editmenu
-		JMenu editMenu = new JMenu ("Edit");
+		JMenu editMenu = new JMenu (prosjekt1.getMessages().getString("edit"));
 		editMenu.setMnemonic('E');
-		editMenu.setToolTipText("Editing operations");
+		editMenu.setToolTipText(prosjekt1.getMessages().getString("editttt"));
 		
 			// Editmenu items
-			JMenuItem newrowItem = new JMenuItem("New row", new ImageIcon("NEWROW.GIF"));
-			newrowItem.setToolTipText("Add a new row/component to the layout");
+			JMenuItem newrowItem = new JMenuItem(prosjekt1.getMessages().getString("newrow"), new ImageIcon("NEWROW.GIF"));
+			newrowItem.setToolTipText(prosjekt1.getMessages().getString("newrowttt"));
 			editMenu.add(newrowItem);
 			
 			
 			editMenu.addSeparator();
 		
-			JMenuItem preferencesItem = new JMenuItem("Preferences");
+			JMenuItem preferencesItem = new JMenuItem(prosjekt1.getMessages().getString("preferences"));
 			preferencesItem.setMnemonic('P');
-			preferencesItem.setToolTipText("Edit personal preferences");
+			preferencesItem.setToolTipText(prosjekt1.getMessages().getString("preferencesttt"));
 			editMenu.add(preferencesItem);
 		
 		bar.add(editMenu);
 
 		// Helpmenu
-		JMenu helpMenu = new JMenu ("Help");
+		JMenu helpMenu = new JMenu (prosjekt1.getMessages().getString("help"));
 		helpMenu.setMnemonic('H');
-		helpMenu.setToolTipText("Help related operations");
+		helpMenu.setToolTipText(prosjekt1.getMessages().getString("helpttt"));
 		
 			// Helpmenu items
-			JMenuItem helpItem = new JMenuItem("Help", new ImageIcon("HELP.GIF"));
+			JMenuItem helpItem = new JMenuItem(prosjekt1.getMessages().getString("help"), new ImageIcon("HELP.GIF"));
 			helpItem.setMnemonic('H');
-			helpItem.setToolTipText("Overview of how the program works");
+			helpItem.setToolTipText(prosjekt1.getMessages().getString("helpttt"));
 			helpMenu.add(helpItem);
 		
 			helpMenu.addSeparator();
 			
-			JMenuItem aboutItem = new JMenuItem("About");
+			JMenuItem aboutItem = new JMenuItem(prosjekt1.getMessages().getString("about"));
 			aboutItem.setMnemonic('A');
-			aboutItem.setToolTipText("Information about the application");
+			aboutItem.setToolTipText(prosjekt1.getMessages().getString("aboutttt"));
 			helpMenu.add(aboutItem);
 			
 		bar.add(helpMenu);
 
 		// Menubar
 		JToolBar ikoner = new JToolBar ();
-		ikoner.add (Box.createHorizontalGlue());
-		ikoner.addSeparator();
 		JButton newButton = new JButton(new ImageIcon("NEW.GIF"));
-		newButton.setToolTipText("Create new file, remove existing data");
+		newButton.setToolTipText(prosjekt1.getMessages().getString("new"));
 		JButton loadButton = new JButton(new ImageIcon("OPENDOC.GIF"));
-		loadButton.setToolTipText("Load a previously saved file");
+		loadButton.setToolTipText(prosjekt1.getMessages().getString("loadttt"));
 		JButton saveButton = new JButton(new ImageIcon("SAVE.GIF"));
-		saveButton.setToolTipText("Save this layout to a file");
+		saveButton.setToolTipText(prosjekt1.getMessages().getString("savettt"));
 		JButton previewButton = new JButton(new ImageIcon("ExecuteProject.gif"));
-		previewButton.setToolTipText("Show this layout in a preview window");
+		previewButton.setToolTipText(prosjekt1.getMessages().getString("previewttt"));
 		JButton generateButton = new JButton(new ImageIcon("SAVEJAVA.GIF"));
-		generateButton.setToolTipText("Show this layout in a preview window");
+		generateButton.setToolTipText(prosjekt1.getMessages().getString("previewttt"));
 		JButton newrowButton = new JButton(new ImageIcon("NEWROW.GIF"));
-		newrowButton.setToolTipText("Add a new row/layout to this layout");
+		newrowButton.setToolTipText(prosjekt1.getMessages().getString("newrowttt"));
 		JButton moveupButton = new JButton(new ImageIcon("MoveRowUp.gif"));
-		moveupButton.setToolTipText("Move row up");
+		moveupButton.setToolTipText(prosjekt1.getMessages().getString("moveupttt"));
 		JButton movedownButton = new JButton(new ImageIcon("MoveRowDown.gif"));
-		movedownButton.setToolTipText("Move row down");
+		movedownButton.setToolTipText(prosjekt1.getMessages().getString("movedownttt"));
 		JButton aboutButton = new JButton(new ImageIcon("HELP.GIF"));
-		aboutButton.setToolTipText("Help on using this software");
+		aboutButton.setToolTipText(prosjekt1.getMessages().getString("helpttt"));
 		ikoner.add(newButton);
 		ikoner.add(loadButton);
 		ikoner.add(saveButton);
@@ -139,8 +134,20 @@ public class gui extends JFrame {
 		ikoner.add(moveupButton);
 		ikoner.add(movedownButton);
 		ikoner.add(aboutButton);
-		ikoner.setLayout(layout);
-		add (ikoner);
+		
+		add(ikoner, BorderLayout.NORTH);
+		
+		// JTable
+		String[] columnNames = {"Type", "Variable Name", "Text", "Row", "Column", "Rows", "Columns", "Fill", "Anchor"};
+		Object[] [] data = { { "", "", "", "",""}};
+				
+			
+		JTable table = new JTable(data, columnNames);
+		table.setPreferredScrollableViewportSize(new Dimension(500,700));
+		table.setFillsViewportHeight(true);
+		JScrollPane scrollPane = new JScrollPane(table);
+		add(scrollPane, BorderLayout.CENTER);
+	
 		
 		pack();
 		setVisible (true);
