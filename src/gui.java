@@ -6,9 +6,14 @@ import java.awt.event.KeyEvent;
  * @author Jon Arne Westgaard
  */
 public class gui extends JFrame {
+	
+	private guiEventHandlers evtHandle;
+	
+	
 	public gui() {
 		super ("GridBagLayout editor");
 		
+		evtHandle = new guiEventHandlers();
 		
 	
 				
@@ -26,17 +31,19 @@ public class gui extends JFrame {
 			JMenuItem newItem = new JMenuItem(prosjekt1.getMessages().getString("new"), new ImageIcon("NEW.GIF"));
 			newItem.setMnemonic('N');
 			newItem.setToolTipText(prosjekt1.getMessages().getString("newttt"));
-			
+			newItem.addActionListener(evtHandle.guiNewFile()); // Opens new file, add listener
 			fileMenu.add(newItem);
 		
 			JMenuItem loadItem = new JMenuItem(prosjekt1.getMessages().getString("load"), new ImageIcon("OPENDOC.GIF"));
 			loadItem.setMnemonic('L');
 			loadItem.setToolTipText(prosjekt1.getMessages().getString("loadttt"));
+			loadItem.addActionListener(evtHandle.guiLoadFile());
 			fileMenu.add(loadItem);
 			
 			JMenuItem saveItem = new JMenuItem(prosjekt1.getMessages().getString("save"), new ImageIcon("SAVE.GIF"));
 			saveItem.setMnemonic('S');
 			saveItem.setToolTipText(prosjekt1.getMessages().getString("savettt"));
+			saveItem.addActionListener(evtHandle.guiSaveFile());
 			fileMenu.add(saveItem);
 			
 			JMenuItem saveasItem = new JMenuItem(prosjekt1.getMessages().getString("saveas"), new ImageIcon("SAVEJAVA.GIF"));
@@ -49,6 +56,7 @@ public class gui extends JFrame {
 			JMenuItem previewItem = new JMenuItem(prosjekt1.getMessages().getString("preview"));
 			previewItem.setMnemonic('P');
 			previewItem.setToolTipText(prosjekt1.getMessages().getString("previewttt"));
+			previewItem.addActionListener(evtHandle.guiPreview())
 			fileMenu.add(previewItem);
 			
 			JMenuItem generateItem = new JMenuItem(prosjekt1.getMessages().getString("genjava"), new ImageIcon("SAVEJAVA.GIF"));
