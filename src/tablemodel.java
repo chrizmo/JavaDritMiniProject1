@@ -35,18 +35,19 @@ public class tablemodel extends JPanel {
         								prosjekt1.getMessages().getString("anchor"), 
                                         };
         
-        // Let's give Vector a try instead... 
-        //private Object[][] data = {{"a","a","a","a","a","a","a","a","a"} };
-        private Vector data = new Vector();
+         
+        private Object[][] data = {{"a","a","a","a","a","a","a","a","a"},
+        						   {"b","b","b","b","b","b","b","b","b"} };
+        
         
         // Insert a row
         public void insertrow() {
-        this.data.add("hei");
+        
         }
  
         // Get size
         public int getRowCount() {
-            return this.data.size();
+            return this.data.length;
         }
         
         // Get length
@@ -59,9 +60,9 @@ public class tablemodel extends JPanel {
             return this.columnNames[col];
         }
  
-        // **** This needs to be fixed, should take 2 parameters ****
+        // 
         public Object getValueAt(int row, int col) {
-            return this.data.elementAt(row);
+            return this.data[row][col];
         }
         
         
