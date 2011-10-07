@@ -20,23 +20,23 @@ public class gui extends JFrame {
 		fileMenu.setToolTipText(prosjekt1.getMessages().getString("filettt"));
 		
 			// Filemenu items
-			JMenuItem newItem = new JMenuItem(prosjekt1.getMessages().getString("new"), new ImageIcon("NEW.GIF"));
+			JMenuItem newItem = new JMenuItem(prosjekt1.getMessages().getString("new"), new ImageIcon("icons/NEW.GIF"));
 			newItem.setMnemonic('N');
 			newItem.setToolTipText(prosjekt1.getMessages().getString("newttt"));
 			
 			fileMenu.add(newItem);
 		
-			JMenuItem loadItem = new JMenuItem(prosjekt1.getMessages().getString("load"), new ImageIcon("OPENDOC.GIF"));
+			JMenuItem loadItem = new JMenuItem(prosjekt1.getMessages().getString("load"), new ImageIcon("icons/OPENDOC.GIF"));
 			loadItem.setMnemonic('L');
 			loadItem.setToolTipText(prosjekt1.getMessages().getString("loadttt"));
 			fileMenu.add(loadItem);
 			
-			JMenuItem saveItem = new JMenuItem(prosjekt1.getMessages().getString("save"), new ImageIcon("SAVE.GIF"));
+			JMenuItem saveItem = new JMenuItem(prosjekt1.getMessages().getString("save"), new ImageIcon("icons/SAVE.GIF"));
 			saveItem.setMnemonic('S');
 			saveItem.setToolTipText(prosjekt1.getMessages().getString("savettt"));
 			fileMenu.add(saveItem);
 			
-			JMenuItem saveasItem = new JMenuItem(prosjekt1.getMessages().getString("saveas"), new ImageIcon("SAVEJAVA.GIF"));
+			JMenuItem saveasItem = new JMenuItem(prosjekt1.getMessages().getString("saveas"), new ImageIcon("icons/SAVEJAVA.GIF"));
 			saveasItem.setMnemonic(KeyEvent.VK_A);
 			saveasItem.setToolTipText(prosjekt1.getMessages().getString("saveasttt"));
 			fileMenu.add(saveasItem);
@@ -48,7 +48,7 @@ public class gui extends JFrame {
 			previewItem.setToolTipText(prosjekt1.getMessages().getString("previewttt"));
 			fileMenu.add(previewItem);
 			
-			JMenuItem generateItem = new JMenuItem(prosjekt1.getMessages().getString("genjava"), new ImageIcon("SAVEJAVA.GIF"));
+			JMenuItem generateItem = new JMenuItem(prosjekt1.getMessages().getString("genjava"), new ImageIcon("icons/SAVEJAVA.GIF"));
 			generateItem.setMnemonic(KeyEvent.VK_J);
 			generateItem.setToolTipText(prosjekt1.getMessages().getString("genjavattt"));
 			fileMenu.add(generateItem);
@@ -68,7 +68,7 @@ public class gui extends JFrame {
 		editMenu.setToolTipText(prosjekt1.getMessages().getString("editttt"));
 		
 			// Editmenu items
-			JMenuItem newrowItem = new JMenuItem(prosjekt1.getMessages().getString("newrow"), new ImageIcon("NEWROW.GIF"));
+			JMenuItem newrowItem = new JMenuItem(prosjekt1.getMessages().getString("newrow"), new ImageIcon("icons/NEWROW.GIF"));
 			newrowItem.setToolTipText(prosjekt1.getMessages().getString("newrowttt"));
 			editMenu.add(newrowItem);
 			
@@ -88,7 +88,7 @@ public class gui extends JFrame {
 		helpMenu.setToolTipText(prosjekt1.getMessages().getString("helpttt"));
 		
 			// Helpmenu items
-			JMenuItem helpItem = new JMenuItem(prosjekt1.getMessages().getString("help"), new ImageIcon("HELP.GIF"));
+			JMenuItem helpItem = new JMenuItem(prosjekt1.getMessages().getString("help"), new ImageIcon("icons/HELP.GIF"));
 			helpItem.setMnemonic('H');
 			helpItem.setToolTipText(prosjekt1.getMessages().getString("helpttt"));
 			helpMenu.add(helpItem);
@@ -104,23 +104,23 @@ public class gui extends JFrame {
 
 		// Menubar
 		JToolBar ikoner = new JToolBar ();
-		JButton newButton = new JButton(new ImageIcon("NEW.GIF"));
+		JButton newButton = new JButton(new ImageIcon("icons/NEW.GIF"));
 		newButton.setToolTipText(prosjekt1.getMessages().getString("new"));
-		JButton loadButton = new JButton(new ImageIcon("OPENDOC.GIF"));
+		JButton loadButton = new JButton(new ImageIcon("icons/OPENDOC.GIF"));
 		loadButton.setToolTipText(prosjekt1.getMessages().getString("loadttt"));
-		JButton saveButton = new JButton(new ImageIcon("SAVE.GIF"));
+		JButton saveButton = new JButton(new ImageIcon("icons/SAVE.GIF"));
 		saveButton.setToolTipText(prosjekt1.getMessages().getString("savettt"));
-		JButton previewButton = new JButton(new ImageIcon("ExecuteProject.gif"));
+		JButton previewButton = new JButton(new ImageIcon("icons/ExecuteProject.gif"));
 		previewButton.setToolTipText(prosjekt1.getMessages().getString("previewttt"));
-		JButton generateButton = new JButton(new ImageIcon("SAVEJAVA.GIF"));
+		JButton generateButton = new JButton(new ImageIcon("icons/SAVEJAVA.GIF"));
 		generateButton.setToolTipText(prosjekt1.getMessages().getString("previewttt"));
-		JButton newrowButton = new JButton(new ImageIcon("NEWROW.GIF"));
+		JButton newrowButton = new JButton(new ImageIcon("icons/NEWROW.GIF"));
 		newrowButton.setToolTipText(prosjekt1.getMessages().getString("newrowttt"));
-		JButton moveupButton = new JButton(new ImageIcon("MoveRowUp.gif"));
+		JButton moveupButton = new JButton(new ImageIcon("icons/MoveRowUp.gif"));
 		moveupButton.setToolTipText(prosjekt1.getMessages().getString("moveupttt"));
-		JButton movedownButton = new JButton(new ImageIcon("MoveRowDown.gif"));
+		JButton movedownButton = new JButton(new ImageIcon("icons/MoveRowDown.gif"));
 		movedownButton.setToolTipText(prosjekt1.getMessages().getString("movedownttt"));
-		JButton aboutButton = new JButton(new ImageIcon("HELP.GIF"));
+		JButton aboutButton = new JButton(new ImageIcon("icons/HELP.GIF"));
 		aboutButton.setToolTipText(prosjekt1.getMessages().getString("helpttt"));
 		ikoner.add(newButton);
 		ikoner.add(loadButton);
@@ -135,11 +135,8 @@ public class gui extends JFrame {
 		add(ikoner, BorderLayout.NORTH);
 		
 		// JTable
-		// JTable table = new JTable(new tablemodel());
-		// JScrollPane scrollPane = new JScrollPane(table);
-		
 		tablemodel tabell = new tablemodel();
-		  
+		
 		add(tabell);
 		
 	
