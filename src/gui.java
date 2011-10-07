@@ -11,12 +11,15 @@ public class gui extends JFrame {
 	
 	
 	public gui() {
+<<<<<<< HEAD
 		super ("GridBagLayout editor");
 		
 		evtHandle = new guiEventHandlers();
 		
+=======
+		super (prosjekt1.getMessages().getString("title"));
+>>>>>>> d9cc7d1187622f0a1b3429225f87216919c8d8d9
 	
-				
 		// Menubar
 		JMenuBar bar = new JMenuBar();
 		setJMenuBar(bar);
@@ -146,15 +149,13 @@ public class gui extends JFrame {
 		add(ikoner, BorderLayout.NORTH);
 		
 		// JTable
-		String[] columnNames = {"Type", "Variable Name", "Text", "Row", "Column", "Rows", "Columns", "Fill", "Anchor"};
-		Object[] [] data = { { "", "", "", "",""}};
-				
-			
-		JTable table = new JTable(data, columnNames);
-		table.setPreferredScrollableViewportSize(new Dimension(500,700));
-		table.setFillsViewportHeight(true);
-		JScrollPane scrollPane = new JScrollPane(table);
-		add(scrollPane, BorderLayout.CENTER);
+		// JTable table = new JTable(new tablemodel());
+		// JScrollPane scrollPane = new JScrollPane(table);
+		
+		tablemodel tabell = new tablemodel();
+		  
+		add(tabell);
+		
 	
 		
 		pack();
