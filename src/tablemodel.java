@@ -9,8 +9,9 @@ import java.awt.GridLayout;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Vector;
+import javax.swing.*;
 
- class tablemodel extends AbstractTableModel {
+ public class tablemodel extends AbstractTableModel {
 	  private String[] columnNames= {"nisse", "variablename", "text", "row", "columns", "rows", "columns", "fill", "anchor" } ;
 	  private Vector data = new Vector();
     
@@ -26,20 +27,16 @@ import java.util.Vector;
     	this.columnNames[6] =  prosjekt1.getMessages().getString("columns");
     	this.columnNames[7] =  prosjekt1.getMessages().getString("fill");
     	this.columnNames[8] =  prosjekt1.getMessages().getString("anchor");
-    	insertRow();
                 }	
  
 
 
 // Insert a row
 public void insertRow() {
-this.data.addElement(1+this.data.size());	// Just to confirm that we can add rows
-this.data.addElement(1+this.data.size());
-this.data.addElement(1+this.data.size());
+data.addElement(1+this.data.size());
 
 fireTableRowsInserted(this.data.size() - 1, this.data.size() - 1);
 }
-
 
 // Delete a row
 public void deleteRow (int row) {
@@ -49,9 +46,8 @@ public void deleteRow (int row) {
 
 // Create a new table, delete everything in the current one
 public void ny() {
-	int size = this.data.size();
 	this.data.removeAllElements();
-	fireTableRowsDeleted(0,size);
+	fireTableRowsDeleted(0,this.data.size());
 }
 
 // Return number of rows
@@ -70,9 +66,19 @@ return this.columnNames[col].toString();
 }
 
 // ***NEED TO BE FIXED***
-// Obtain value in particular row and column
+//
 public Object getValueAt(int row, int col) {
-	
+	switch(col) {
+	case 0: return data.elementAt(row);
+	case 1: return data.elementAt(row);
+	case 2: return data.elementAt(row);
+	case 3: return data.elementAt(row);
+	case 4: return data.elementAt(row);
+	case 5: return data.elementAt(row);
+	case 6: return data.elementAt(row);
+	case 7: return data.elementAt(row);
+	case 8: return data.elementAt(row);
+	}
 return this.data.elementAt(row);
 }
 
@@ -94,8 +100,28 @@ public Class getColumnClass(int i)
   return getValueAt(0, i).getClass();
 }
 
+// Move row up
+public void moverowup(int row)
+{
+  if ((row >= 0) && (row < this.data.size() - 1)) {
+    Object localObject = this.data.elementAt(row);
+    deleteRow(row);
+    this.data.insertElementAt(localObject, row - 1);
+    fireTableRowsInserted(row - 1, row - 1);
 
+  }
+}
 
+// Move row down
+public void moverowdown(int row)
+{
+  if (row <= this.data.size() - 1) {
+    Object localObject = this.data.elementAt(row);
+    deleteRow(row);
+    this.data.insertElementAt(localObject, row + 1);
+    fireTableRowsInserted(row + 1, row + 1);
+  }
+}
 
 
  }   // End of class tablemodel
