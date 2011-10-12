@@ -7,11 +7,8 @@ import javax.swing.JFrame;
 
 public class prosjekt1 {
 	private static ResourceBundle messages = ResourceBundle.getBundle("MessageBundle", Locale.getDefault());
-	
-	public static ResourceBundle getMessages() {
-	return messages;	
-	}
-	
+	public static ResourceBundle getMessages() { return messages; }
+	    
 	public static void main (String args[]) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {

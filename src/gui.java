@@ -1,4 +1,5 @@
 import java.awt.*;
+
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 
@@ -134,12 +135,15 @@ public class gui extends JFrame {
 		
 		add(ikoner, BorderLayout.NORTH);
 		
-		// JTable
-		tablemodel tabell = new tablemodel();
 		
-		add(tabell);
-		
-	
+		//add(tabell1);
+		JTable table1 = new JTable(new tablemodel());
+				
+        //Create the scroll pane and add the table to it.
+        JScrollPane scrollPane = new JScrollPane(table1);
+        
+        //Add the scroll pane to this panel.
+        add(scrollPane);
 		
 		pack();
 		setVisible (true);
