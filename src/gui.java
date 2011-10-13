@@ -1,15 +1,14 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
-import java.lang.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.JButton;
+import javax.swing.JPopupMenu;
 
 /** Class gui. Creates the window with file-menus and buttons
  * @author Jon Arne Westgaard
@@ -24,8 +23,12 @@ public class gui extends JFrame {
 	public gui() {
 		
 		super (prosjekt1.getMessages().getString("title"));
+
+
+
 		evtHandle = new guiEventHandlers();
-		//add(tabell1);
+		
+
 		final tablemodel t2 = new tablemodel();
 		final JTable table1 = new JTable(t2);
 
@@ -45,7 +48,7 @@ public class gui extends JFrame {
 			newItem.setToolTipText(prosjekt1.getMessages().getString("newttt"));
 			newItem.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent evt){
-						//evtHandle.guiNewFile();
+						t2.ny();
 			}}); // Creates new file, add listener
 			fileMenu.add(newItem);
 		
@@ -114,6 +117,12 @@ public class gui extends JFrame {
 			JMenuItem newrowItem = new JMenuItem(prosjekt1.getMessages().getString("newrow"), new ImageIcon("icons/NEWROW.GIF"));
 			newrowItem.setToolTipText(prosjekt1.getMessages().getString("newrowttt"));
 			editMenu.add(newrowItem);
+			newrowItem.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e)
+	            {
+	            	t2.insertRow();
+	            }
+	        }); 
 			
 			
 			editMenu.addSeparator();
@@ -202,9 +211,10 @@ public class gui extends JFrame {
 		moveupButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
+            	// Need to check if row is already at the top
             	t2.moverowup(table1.getSelectedRow());
-            	
-            }
+            	}
+            
         }); 
 		
 		
@@ -214,12 +224,20 @@ public class gui extends JFrame {
 		movedownButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
+            	// Need to chek if row is already at the bottom
             	t2.moverowdown(table1.getSelectedRow());
             	
             }
         }); 
 		JButton aboutButton = new JButton(new ImageIcon("icons/HELP.GIF"));
 		aboutButton.setToolTipText(prosjekt1.getMessages().getString("helpttt"));
+		
+		
+		
+
+	    
+		
+		
 		
 		
 		ikoner.add(newButton);
@@ -235,10 +253,7 @@ public class gui extends JFrame {
 		add(ikoner, BorderLayout.NORTH);
 		
 
-		// JTable
-		// JTable table = new JTable(new tablemodel());
-		// JScrollPane scrollPane = new JScrollPane(table);
-		
+	
         //Create the scroll pane and add the table to it.
         JScrollPane scrollPane = new JScrollPane(table1);
         
@@ -250,6 +265,7 @@ public class gui extends JFrame {
 		pack();
 		setVisible (true);
 	}
+
 	
 	private File openFileDialog() {
 		
@@ -297,4 +313,6 @@ public class gui extends JFrame {
 		return(fileName);		// Return filename to function
 		*/
 	}
+
 }
+

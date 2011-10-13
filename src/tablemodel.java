@@ -12,7 +12,7 @@ import java.util.Vector;
 import javax.swing.*;
 
  public class tablemodel extends AbstractTableModel {
-	  private String[] columnNames= {"nisse", "variablename", "text", "row", "columns", "rows", "columns", "fill", "anchor" } ;
+	  private String[] columnNames= {"type", "variablename", "text", "row", "columns", "rows", "columns", "fill", "anchor" } ;
 	  private Vector data = new Vector();
     
 
@@ -34,7 +34,6 @@ import javax.swing.*;
 // Insert a row
 public void insertRow() {
 data.addElement(1+this.data.size());
-
 fireTableRowsInserted(this.data.size() - 1, this.data.size() - 1);
 }
 
@@ -65,7 +64,7 @@ public String getColumnName(int col) {
 return this.columnNames[col].toString();
 }
 
-// ***NEED TO BE FIXED***
+
 //
 public Object getValueAt(int row, int col) {
 	switch(col) {
@@ -89,16 +88,63 @@ public boolean isCellEditable(int row, int col) {
         
 
 // Set value at
-public void setValueAt(Object value, int row, int col) {
-    //this.data.elementAt(row) = value;
-    fireTableCellUpdated(row, col);
+public void setValueAt(Object paramObject, int row, int col)
+{
+  if (col == 0) {
+    int i = ((Integer)paramObject).intValue();
+    Object localObject = null;
+    switch (i) { case 0:
+      localObject = new componentJLabel((component)this.data.elementAt(row));
+      this.data.setElementAt(localObject, row);
+      break;
+    case 1:
+      //localObject = new componentJButton((component)this.data.elementAt(row));
+      this.data.setElementAt(localObject, row);
+      break;
+    case 2:
+      //localObject = new componentJTextField((component)this.data.elementAt(row));
+      this.data.setElementAt(localObject, row);
+      break;
+    case 3:
+      //localObject = new componentJTextArea((component)this.data.elementAt(row));
+      this.data.setElementAt(localObject, row);
+      break;
+    case 4:
+      //localObject = new componentJCheckBox((component)this.data.elementAt(row));
+      this.data.setElementAt(localObject, row);
+      break;
+    case 5:
+      //localObject = new componentJList((component)this.data.elementAt(row));
+      this.data.setElementAt(localObject, row);
+      break;
+    case 6:
+      //localObject = new componentJComboBox((component)this.data.elementAt(row));
+      this.data.setElementAt(localObject, row);
+      break;
+    case 7:
+      //localObject = new componentJSpinnerList((component)this.data.elementAt(row));
+      this.data.setElementAt(localObject, row);
+      break;
+    case 8:
+      //localObject = new componentJSpinnerNumber((component)this.data.elementAt(row));
+      this.data.setElementAt(localObject, row); }
+  }
+  else
+  {
+    //((component)this.data.elementAt(row)).setKolonne(col, paramObject);
+  }
+  fireTableCellUpdated(row, col);
 }
+
  
 // Have no idea what this is for...
-public Class getColumnClass(int i)
+public Class getColumnClass(int row, int col)
 {
-  return getValueAt(0, i).getClass();
+  //return getValueAt(0, i).getClass();
+  return this.getValueAt(row, col).getClass();
 }
+
+
 
 // Move row up
 public void moverowup(int row)
