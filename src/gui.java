@@ -9,7 +9,6 @@ import java.util.*;
 import java.util.logging.*;
 import javax.swing.JButton;
 import javax.swing.JPopupMenu;
-
 /** Class gui. Creates the window with file-menus and buttons
  * @author Jon Arne Westgaard
  */
@@ -17,17 +16,14 @@ public class gui extends JFrame {
 
 	
 	private File fileLoadTable = null;
-	
-	private guiEventHandlers evtHandle;
+
 	private Logger logger = Logger.getLogger("MyLog");		// Logging mechanism
 	final tablemodel t2;							// Our table model used in the system
 	final JTable table1;							// The JTable for use in system
 	
-	public gui() {
-		
+	public gui() {		
 		super (prosjekt1.getMessages().getString("title"));
 
-		evtHandle = new guiEventHandlers();			// Test of externel handler
 		//TODO: Decide if this should last
 		t2 = new tablemodel();
 		table1 = new JTable(t2);

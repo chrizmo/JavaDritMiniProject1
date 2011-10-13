@@ -1,12 +1,13 @@
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+
 /**
  * 
  * @author Christer Vaskinn
  *
  */
 
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
 
 public class guiAbout extends JFrame implements ActionListener{
 
