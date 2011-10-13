@@ -31,6 +31,7 @@ public class gui extends JFrame {
 
 		final tablemodel t2 = new tablemodel();
 		final JTable table1 = new JTable(t2);
+		
 
 		// Menubar
 		JMenuBar bar = new JMenuBar();
@@ -231,14 +232,6 @@ public class gui extends JFrame {
         }); 
 		JButton aboutButton = new JButton(new ImageIcon("icons/HELP.GIF"));
 		aboutButton.setToolTipText(prosjekt1.getMessages().getString("helpttt"));
-		
-		
-		
-
-	    
-		
-		
-		
 		
 		ikoner.add(newButton);
 		ikoner.add(loadButton);

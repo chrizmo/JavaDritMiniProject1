@@ -17,7 +17,6 @@ import javax.swing.*;
     
 
     tablemodel() {
-
     	this.columnNames[0] =  prosjekt1.getMessages().getString("type");
     	this.columnNames[1] =  prosjekt1.getMessages().getString("variablename");
     	this.columnNames[2] =  prosjekt1.getMessages().getString("text");
@@ -27,13 +26,15 @@ import javax.swing.*;
     	this.columnNames[6] =  prosjekt1.getMessages().getString("columns");
     	this.columnNames[7] =  prosjekt1.getMessages().getString("fill");
     	this.columnNames[8] =  prosjekt1.getMessages().getString("anchor");
+    	
                 }	
  
 
 
 // Insert a row
 public void insertRow() {
-data.addElement(1+this.data.size());
+this.data.add("nils"+this.data.size());
+
 fireTableRowsInserted(this.data.size() - 1, this.data.size() - 1);
 }
 
@@ -67,18 +68,11 @@ return this.columnNames[col].toString();
 
 //
 public Object getValueAt(int row, int col) {
-	switch(col) {
-	case 0: return data.elementAt(row);
-	case 1: return data.elementAt(row);
-	case 2: return data.elementAt(row);
-	case 3: return data.elementAt(row);
-	case 4: return data.elementAt(row);
-	case 5: return data.elementAt(row);
-	case 6: return data.elementAt(row);
-	case 7: return data.elementAt(row);
-	case 8: return data.elementAt(row);
-	}
-return this.data.elementAt(row);
+   //return ((component)this.data.elementAt(row)).getcolumn(col);
+    //return ((Komponent)this.data.elementAt(paramInt1)).getKolonne(paramInt2);
+return (((component)data.elementAt(row)).getType());
+	
+//return this.data.elementAt(row);
 }
 
 // Set cell to editable
@@ -93,9 +87,10 @@ public void setValueAt(Object paramObject, int row, int col)
   if (col == 0) {
     int i = ((Integer)paramObject).intValue();
     Object localObject = null;
-    switch (i) { case 0:
+    switch (i) {
+    case 0:
       localObject = new componentJLabel((component)this.data.elementAt(row));
-      this.data.setElementAt(localObject, row);
+      this.data.setElementAt(new componentJLabel((component)this.data.elementAt(row)), row);
       break;
     case 1:
       //localObject = new componentJButton((component)this.data.elementAt(row));
