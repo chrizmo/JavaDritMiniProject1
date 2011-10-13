@@ -9,13 +9,16 @@ import java.awt.GridLayout;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.*;
 
  public class tablemodel extends AbstractTableModel {
 	  private String[] columnNames= {"type", "variablename", "text", "row", "columns", "rows", "columns", "fill", "anchor" } ;
 	  private Vector data = new Vector();
-    
-
+	  private Logger logger = Logger.getLogger("MyLog");
+	  private final String fileHeader = "GridBagLayout2010";
     tablemodel() {
 
     	this.columnNames[0] =  prosjekt1.getMessages().getString("type");
@@ -33,8 +36,9 @@ import javax.swing.*;
 
 // Insert a row
 public void insertRow() {
-data.addElement(1+this.data.size());
-fireTableRowsInserted(this.data.size() - 1, this.data.size() - 1);
+	data.addElement(new componentJLabel("ny" + this.data.size(), "", 1, 1, 1, 1));
+	fireTableRowsInserted(this.data.size() - 1, this.data.size() - 1);
+	logger.log(Level.FINE,"Ny rad på posisjon " + (this.data.size() - 1));
 }
 
 // Delete a row
@@ -169,6 +173,80 @@ public void moverowdown(int row)
   }
 }
 
+public void saveToFile(RandomAccessFile randTblFle) throws IOException{
+	
+	randTblFle.writeUTF(fileHeader);
+	randTblFle.writeInt(this.data.size());
+    for (int i = 0; i < this.data.size(); i++) {
+      component localKomponent = (component)this.data.elementAt(i);
+      localKomponent.tilFil(randTblFle);
+    }
+    logger.log(Level.FINE, "Written" + this.data.size() + " to file"); //TODO: Internasionalise
+}
 
+public void openTableFile(RandomAccessFile randAccFile) throws IOException{
+	try {
+		String str = randAccFile.readUTF();
+		if (!str.equals(fileHeader)) {
+			logger.warning("Feil på kontrollstring i filformat, kunne ikke laste inn fil");
+			JOptionPane.showMessageDialog(null, prosjekt1.getMessages().getString("fileLoad.baddate"), prosjekt1.getMessages().getString("fileLoad.table"), 0);
+			return;
+		}
+	} catch (Exception e) {
+		logger.log(Level.INFO,"Error with file: " + e.getMessage());
+		JOptionPane.showMessageDialog(null, prosjekt1.getMessages().getString("fileLoad.baddate"), prosjekt1.getMessages().getString("fileLoad.table"), 0);
+		return;
+	}
+	this.data.removeAllElements();				// Remove all the elements
+    int i = randAccFile.readInt();
+	
+    try {
+        for (int j = 0; j < i; j++) {
+          component localcomponent = new component();
+          Object localObject = null;
+          logger.log(Level.FINE, "Leser inn component " + j);
+          localcomponent.fraFil(randAccFile);
+          switch (localcomponent.getType()) { case 0:
+            localObject = new componentJLabel(localcomponent);
+            break;
+          case 1:
+            localObject = new componentJButton(localcomponent);
+            break;
+          case 2:
+            localObject = new componentJTextField(localcomponent);
+            ((component)localObject).fraFil(randAccFile);
+            break;
+          case 3:
+            localObject = new componentJTextArea(localcomponent);
+            ((component)localObject).fraFil(randAccFile);
+            break;
+          case 4:
+            localObject = new componentJCheckBox(localcomponent);
+            break;
+          case 5:
+            localObject = new componentJList(localcomponent);
+            ((component)localObject).fraFil(randAccFile);
+            break;
+          case 6:
+            localObject = new componentJComboBox(localcomponent);
+            ((component)localObject).fraFil(randAccFile);
+            break;
+          case 7:
+            localObject = new componentJSpinnerList(localcomponent);
+            ((component)localObject).fraFil(randAccFile);
+            break;
+          case 8:
+            localObject = new componentJSpinnerNumber(localcomponent);
+            ((component)localObject).fraFil(randAccFile);
+          }
 
- }   // End of class tablemodel
+          this.data.add(localObject);
+        }
+      } catch (Exception localException2) {
+        logger.log(Level.FINE, "Feil under lesing fra fil : " + localException2.toString());
+      }
+      fireTableRowsInserted(0, this.data.size() - 1);
+      logger.log(Level.FINE, "Lest inn fil med " + this.data.size() + " rader");
+}    
+
+}   // End of class tablemodel
