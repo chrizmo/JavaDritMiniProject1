@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.JButton;
+import javax.swing.JPopupMenu;
 
 /** Class gui. Creates the window with file-menus and buttons
  * @author Jon Arne Westgaard
@@ -13,7 +14,7 @@ import javax.swing.JButton;
 public class gui extends JFrame {
 	public gui() {
 		super (prosjekt1.getMessages().getString("title"));
-		//add(tabell1);
+
 		final tablemodel t2 = new tablemodel();
 		final JTable table1 = new JTable(t2);
 		
@@ -177,6 +178,12 @@ public class gui extends JFrame {
 		aboutButton.setToolTipText(prosjekt1.getMessages().getString("helpttt"));
 		
 		
+
+	    
+		
+		
+		
+		
 		ikoner.add(newButton);
 		ikoner.add(loadButton);
 		ikoner.add(saveButton);
@@ -204,5 +211,5 @@ public class gui extends JFrame {
 		pack();
 		setVisible (true);
 	}
-
 }
+
