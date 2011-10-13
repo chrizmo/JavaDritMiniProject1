@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
+import java.util.logging.*;
+
 import javax.swing.JButton;
 import javax.swing.JPopupMenu;
 
@@ -19,7 +21,7 @@ public class gui extends JFrame {
 	private File fileLoadTable = null;
 	
 	private guiEventHandlers evtHandle;
-
+	Logger logger = Logger.getLogger("MyLog");		// Logging mechanism
 	public gui() {
 		
 		super (prosjekt1.getMessages().getString("title"));
@@ -295,24 +297,25 @@ public class gui extends JFrame {
 	}
 	
 	private void saveFileDialog(){
-		JFileChooser fileChooser = new JFileChooser();
-		
-		
-		fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		
-		fileChooser.showSaveDialog(this);
-		
-	/*	if(result == JFileChooser.CANCEL_OPTION)
-			return(null);
-		
-		File fileName = fileChooser.getSelectedFile();	
-		if( (fileName == null) || fileName.getName().equals("")){
-			JOptionPane.showMessageDialog(this, "Invalid Name", "Invalid Name",JOptionPane.ERROR_MESSAGE);
-			System.exit(1);
-		}
-		return(fileName);		// Return filename to function
-		*/
-	}
+		    try
+		    {
+		      if ((this.fileLoadTable == null)) {
+		  		JFileChooser fileChooser = new JFileChooser();
+				
+				
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				
+				fileChooser.showSaveDialog(this);
+		      this.fileLoadTable = fileChooser.getSelectedFile();
+		      setTitle(prosjekt1.getMessages().getString("title") + this.fileLoadTable.getName());
+		      }
+		      Object objLocalFile = new RandomAccessFile(this.fileLoadTable, "rw");	// Generate file
+		      this.data.lagreModell((RandomAccessFile)objLocalFile); // Write data to file
+		      ((RandomAccessFile)objLocalFile).close();				// Close the file
+		    } catch (Exception e) {
+		      logger.log(Level.WARNING,"Feil under lagring til fil : " + e.getMessage());
+		    }
+		  }
 
 }
 
