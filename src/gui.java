@@ -1,24 +1,32 @@
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
-
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.lang.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.*;
+import javax.swing.JButton;
 
 /** Class gui. Creates the window with file-menus and buttons
  * @author Jon Arne Westgaard
  */
 public class gui extends JFrame {
+
 	
 	private File fileLoadTable = null;
 	
 	private guiEventHandlers evtHandle;
-	
+
 	public gui() {
 		super (prosjekt1.getMessages().getString("title"));
-		evtHandle = new guiEventHandlers();	
-
+		evtHandle = new guiEventHandlers();
+		//add(tabell1);
+		final tablemodel t2 = new tablemodel();
+		final JTable table1 = new JTable(t2);
 		// Menubar
 		JMenuBar bar = new JMenuBar();
 		setJMenuBar(bar);
@@ -30,7 +38,7 @@ public class gui extends JFrame {
 		fileMenu.setToolTipText(prosjekt1.getMessages().getString("filettt"));
 		
 			// Filemenu items
-			JMenuItem newItem = new JMenuItem(prosjekt1.getMessages().getString("new"), new ImageIcon("NEW.GIF"));
+			JMenuItem newItem = new JMenuItem(prosjekt1.getMessages().getString("new"), new ImageIcon("icons/NEW.GIF"));
 			newItem.setMnemonic('N');
 			newItem.setToolTipText(prosjekt1.getMessages().getString("newttt"));
 			newItem.addActionListener(new ActionListener(){
@@ -39,7 +47,7 @@ public class gui extends JFrame {
 			}}); // Creates new file, add listener
 			fileMenu.add(newItem);
 		
-			JMenuItem loadItem = new JMenuItem(prosjekt1.getMessages().getString("load"), new ImageIcon("OPENDOC.GIF"));
+			JMenuItem loadItem = new JMenuItem(prosjekt1.getMessages().getString("load"), new ImageIcon("icons/OPENDOC.GIF"));
 			loadItem.setMnemonic('L');
 			loadItem.setToolTipText(prosjekt1.getMessages().getString("loadttt"));
 			loadItem.addActionListener(new ActionListener() {
@@ -48,7 +56,7 @@ public class gui extends JFrame {
 		}}); // Loads new file, add listener
 			fileMenu.add(loadItem);
 			
-			JMenuItem saveItem = new JMenuItem(prosjekt1.getMessages().getString("save"), new ImageIcon("SAVE.GIF"));
+			JMenuItem saveItem = new JMenuItem(prosjekt1.getMessages().getString("save"), new ImageIcon("icons/SAVE.GIF"));
 			saveItem.setMnemonic('S');
 			saveItem.setToolTipText(prosjekt1.getMessages().getString("savettt"));
 			saveItem.addActionListener(new ActionListener() {
@@ -58,7 +66,7 @@ public class gui extends JFrame {
 			});
 			fileMenu.add(saveItem);
 			
-			JMenuItem saveasItem = new JMenuItem(prosjekt1.getMessages().getString("saveas"), new ImageIcon("SAVEJAVA.GIF"));
+			JMenuItem saveasItem = new JMenuItem(prosjekt1.getMessages().getString("saveas"), new ImageIcon("icons/SAVEJAVA.GIF"));
 			saveasItem.setMnemonic(KeyEvent.VK_A);
 			saveasItem.setToolTipText(prosjekt1.getMessages().getString("saveasttt"));
 			fileMenu.add(saveasItem);
@@ -126,11 +134,15 @@ public class gui extends JFrame {
 		helpMenu.setToolTipText(prosjekt1.getMessages().getString("helpttt"));
 		
 			// Helpmenu items
-			JMenuItem helpItem = new JMenuItem(prosjekt1.getMessages().getString("help"), new ImageIcon("HELP.GIF"));
+			JMenuItem helpItem = new JMenuItem(prosjekt1.getMessages().getString("help"), new ImageIcon("icons/HELP.GIF"));
 			helpItem.setMnemonic('H');
 			helpItem.setToolTipText(prosjekt1.getMessages().getString("helpttt"));
 			helpMenu.add(helpItem);
-		
+			helpItem.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent evt){
+					JOptionPane.showMessageDialog(gui.this,"Fukcing google it!","Please...",JOptionPane.INFORMATION_MESSAGE);
+				}
+			});
 			helpMenu.addSeparator();
 			
 			JMenuItem aboutItem = new JMenuItem(prosjekt1.getMessages().getString("about"));
@@ -151,20 +163,63 @@ public class gui extends JFrame {
 				gui.this.openFileDialog();
 	}}); // Loads new file, add listener
 		loadButton.setToolTipText(prosjekt1.getMessages().getString("loadttt"));
+		// Actionlistener:
+		newButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+            	t2.ny();
+            }
+        }); 
+		
 		JButton saveButton = new JButton(new ImageIcon("icons/SAVE.GIF"));
 		saveButton.setToolTipText(prosjekt1.getMessages().getString("savettt"));
+		
+		
 		JButton previewButton = new JButton(new ImageIcon("icons/ExecuteProject.gif"));
 		previewButton.setToolTipText(prosjekt1.getMessages().getString("previewttt"));
+		
+		
 		JButton generateButton = new JButton(new ImageIcon("icons/SAVEJAVA.GIF"));
 		generateButton.setToolTipText(prosjekt1.getMessages().getString("previewttt"));
+		
 		JButton newrowButton = new JButton(new ImageIcon("icons/NEWROW.GIF"));
 		newrowButton.setToolTipText(prosjekt1.getMessages().getString("newrowttt"));
+		// Actionlistener:
+		newrowButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+            	t2.insertRow();
+            }
+        });      
+		
+		
+				
 		JButton moveupButton = new JButton(new ImageIcon("icons/MoveRowUp.gif"));
 		moveupButton.setToolTipText(prosjekt1.getMessages().getString("moveupttt"));
+		// Actionlistener:
+		moveupButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+            	t2.moverowup(table1.getSelectedRow());
+            	
+            }
+        }); 
+		
+		
 		JButton movedownButton = new JButton(new ImageIcon("icons/MoveRowDown.gif"));
 		movedownButton.setToolTipText(prosjekt1.getMessages().getString("movedownttt"));
+		// Actionlistener:
+		movedownButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+            	t2.moverowdown(table1.getSelectedRow());
+            	
+            }
+        }); 
 		JButton aboutButton = new JButton(new ImageIcon("icons/HELP.GIF"));
 		aboutButton.setToolTipText(prosjekt1.getMessages().getString("helpttt"));
+		
+		
 		ikoner.add(newButton);
 		ikoner.add(loadButton);
 		ikoner.add(saveButton);
@@ -177,16 +232,19 @@ public class gui extends JFrame {
 		
 		add(ikoner, BorderLayout.NORTH);
 		
+
 		// JTable
 		// JTable table = new JTable(new tablemodel());
 		// JScrollPane scrollPane = new JScrollPane(table);
 		
-		tablemodel tabell = new tablemodel();
-		  
-		add(tabell);
+        //Create the scroll pane and add the table to it.
+        JScrollPane scrollPane = new JScrollPane(table1);
+        
+        //Add the scroll pane to this panel.
+        add(scrollPane);
 		
-	
-		
+    		
+        
 		pack();
 		setVisible (true);
 	}
