@@ -14,11 +14,19 @@ import java.util.logging.Logger;
 
 import javax.swing.*;
 
+/**
+ * 
+ * Definition for the tables
+ * 
+ * @author Jon Arne Westgaard
+ *
+ */
+
  public class tablemodel extends AbstractTableModel {
 	  private String[] columnNames= {"type", "variablename", "text", "row", "columns", "rows", "columns", "fill", "anchor" } ;
 	  private Vector data = new Vector();
 	  private Logger logger = Logger.getLogger("MyLog");
-	  private final String fileHeader = "GridBagLayout2010";
+	  private final String fileHeader = "GridBagLayoutEditor file format v1.2";
     tablemodel() {
 
     	this.columnNames[0] =  prosjekt1.getMessages().getString("type");
@@ -35,6 +43,10 @@ import javax.swing.*;
 
 
 // Insert a row
+    
+/**
+ * Add row to table
+ */
 public void insertRow() {
 	data.addElement(new componentJLabel("ny" + this.data.size(), "", 1, 1, 1, 1));
 	fireTableRowsInserted(this.data.size() - 1, this.data.size() - 1);
@@ -42,33 +54,66 @@ public void insertRow() {
 }
 
 // Delete a row
+/**
+ * Delete a row from the table
+ * 
+ * @param row The row to delete
+ */
 public void deleteRow (int row) {
 	this.data.removeElementAt(row);
 	fireTableRowsDeleted(0,row);
 }
 
 // Create a new table, delete everything in the current one
+/**
+ * Add row to table
+ */
+
 public void ny() {
 	this.data.removeAllElements();
 	fireTableRowsDeleted(0,this.data.size());
 }
 
 // Return number of rows
+/**
+ * Count rows from table
+ * 
+ * @return int with table size
+ */
 public int getRowCount() {
 return this.data.size();
 }
 
 // Get number of columns
+/**
+ * Returns number of columns
+ * 
+ * @return int with columns
+ */
 public int getColumnCount() {
 return this.columnNames.length;
 }
 
-// Sets the name for each column
+/**
+ *  Sets the name for each column
+ *  
+ *  @param col the column to return
+ *  @return the name of a column
+ */
+
+
 public String getColumnName(int col) {
 return this.columnNames[col].toString();
 }
 
-
+/**
+ * Return value at cell
+ * 
+ * @param row the row to return the cell from
+ * @param coloumn of the cell to return
+ * 
+ * @return Object of cell
+ */
 //
 public Object getValueAt(int row, int col) {
 	switch(col) {
@@ -86,12 +131,26 @@ return this.data.elementAt(row);
 }
 
 // Set cell to editable
+
+/**
+ * Check if the cell is editable
+ * 
+ * @param row the row to return the cell from
+ * @param coloumn of the cell to return
+ * 
+ * @return bool
+ */
 public boolean isCellEditable(int row, int col) {
-	return true; 
+	return true; // TODO: Dette kan ikke v¾re riktig? Christer 
 }
         
 
-// Set value at
+/**
+ * Set the value of a cell
+ * 
+ * @param row the row to return the cell from
+ * @param coloumn of the cell to return
+ */
 public void setValueAt(Object paramObject, int row, int col)
 {
   if (col == 0) {
@@ -141,7 +200,13 @@ public void setValueAt(Object paramObject, int row, int col)
 }
 
  
-// Have no idea what this is for...
+/**
+ * Get the class of a cell
+ * 
+ * @param row
+ * @param col
+ * @return class type
+ */
 public Class getColumnClass(int row, int col)
 {
   //return getValueAt(0, i).getClass();
@@ -150,7 +215,11 @@ public Class getColumnClass(int row, int col)
 
 
 
-// Move row up
+/**
+ * Move a row up
+ * 
+ * @param row to move
+ */
 public void moverowup(int row)
 {
   if ((row >= 0) && (row < this.data.size() - 1)) {
@@ -162,7 +231,11 @@ public void moverowup(int row)
   }
 }
 
-// Move row down
+/**
+ * Move row down
+ * 
+ * @param row to move
+ */
 public void moverowdown(int row)
 {
   if (row <= this.data.size() - 1) {
@@ -172,7 +245,12 @@ public void moverowdown(int row)
     fireTableRowsInserted(row + 1, row + 1);
   }
 }
-
+/**
+ * Write table to file
+ * 
+ * @param randTblFle File to write to
+ * @throws IOException
+ */
 public void saveToFile(RandomAccessFile randTblFle) throws IOException{
 	
 	randTblFle.writeUTF(fileHeader);
@@ -183,7 +261,12 @@ public void saveToFile(RandomAccessFile randTblFle) throws IOException{
     }
     logger.log(Level.FINE, "Written" + this.data.size() + " to file"); //TODO: Internasionalise
 }
-
+/**
+ * Open/load file
+ * 
+ * @param randAccFile The file to open
+ * @throws IOException
+ */
 public void openTableFile(RandomAccessFile randAccFile) throws IOException{
 	try {
 		String str = randAccFile.readUTF();
