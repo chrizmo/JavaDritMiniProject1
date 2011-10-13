@@ -1,15 +1,14 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
+import java.util.logging.*;
 import javax.swing.JButton;
 import javax.swing.JPopupMenu;
-
 /** Class gui. Creates the window with file-menus and buttons
  * @author Jon Arne Westgaard
  */
@@ -17,11 +16,12 @@ public class gui extends JFrame {
 
 	
 	private File fileLoadTable = null;
-	
-	private guiEventHandlers evtHandle;
 
-	public gui() {
-		
+	private Logger logger = Logger.getLogger("MyLog");		// Logging mechanism
+	final tablemodel t2;							// Our table model used in the system
+	final JTable table1;							// The JTable for use in system
+	
+	public gui() {		
 		super (prosjekt1.getMessages().getString("title"));
 
 
@@ -32,6 +32,9 @@ public class gui extends JFrame {
 		final tablemodel t2 = new tablemodel();
 		final JTable table1 = new JTable(t2);
 		
+		//TODO: Decide if this should last
+		t2 = new tablemodel();
+		table1 = new JTable(t2);
 
 		// Menubar
 		JMenuBar bar = new JMenuBar();
@@ -50,6 +53,7 @@ public class gui extends JFrame {
 			newItem.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent evt){
 						t2.ny();
+						gui.this.fileLoadTable = null;
 			}}); // Creates new file, add listener
 			fileMenu.add(newItem);
 		
@@ -58,7 +62,7 @@ public class gui extends JFrame {
 			loadItem.setToolTipText(prosjekt1.getMessages().getString("loadttt"));
 			loadItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt){
-					gui.this.fileLoadTable = gui.this.openFileDialog();
+					gui.this.openFileDialog();
 		}}); // Loads new file, add listener
 			fileMenu.add(loadItem);
 			
@@ -180,6 +184,7 @@ public class gui extends JFrame {
             public void actionPerformed(ActionEvent e)
             {
             	t2.ny();
+            	gui.this.fileLoadTable = null;
             }
         }); 
 		
@@ -232,6 +237,7 @@ public class gui extends JFrame {
         }); 
 		JButton aboutButton = new JButton(new ImageIcon("icons/HELP.GIF"));
 		aboutButton.setToolTipText(prosjekt1.getMessages().getString("helpttt"));
+	
 		
 		ikoner.add(newButton);
 		ikoner.add(loadButton);
@@ -260,52 +266,51 @@ public class gui extends JFrame {
 	}
 
 	
-	private File openFileDialog() {
+	private void openFileDialog() {
 		
 	try {
-		JFileChooser fileChooser = new JFileChooser();
+		JFileChooser fileChooser = new JFileChooser(".");
 		
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);	// Sets mode of the filechooser
 		
 		int result = fileChooser.showOpenDialog(this);   // Opens file dialog
 		
-		if(result == JFileChooser.CANCEL_OPTION)	// Cancels the file retrival process
-			return(null);
+		this.fileLoadTable = fileChooser.getSelectedFile();
 		
-		File fileName = fileChooser.getSelectedFile();
-		
-		if( (fileName == null) || fileName.getName().equals("")){ // TODO: Should this be here?
-			JOptionPane.showMessageDialog(this, prosjekt1.getMessages().getString("msgInvalidName"), prosjekt1.getMessages().getString("msgInvalidName"),JOptionPane.ERROR_MESSAGE);
+		if(fileLoadTable == null || result == JFileChooser.CANCEL_OPTION){
+			return;
 		}
 		
+		RandomAccessFile randFile = new RandomAccessFile(this.fileLoadTable, "r");
+		this.t2.openTableFile(randFile);
+		
 		setTitle(prosjekt1.getMessages().getString("title") + this.fileLoadTable.getName()); // Sets title of main window 
-		return(fileName);		// Return filename to function
 	}
-		catch( Exception e ){
-			System.out.println("Error in file!");  //TODO: Write logging thing
-			return null;
+		catch( Exception e){
+			logger.log(Level.WARNING,"Error e: " + e.getMessage());
 		}
 	}
 	
 	private void saveFileDialog(){
-		JFileChooser fileChooser = new JFileChooser();
-		
-		
-		fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		
-		fileChooser.showSaveDialog(this);
-		
-	/*	if(result == JFileChooser.CANCEL_OPTION)
-			return(null);
-		
-		File fileName = fileChooser.getSelectedFile();	
-		if( (fileName == null) || fileName.getName().equals("")){
-			JOptionPane.showMessageDialog(this, "Invalid Name", "Invalid Name",JOptionPane.ERROR_MESSAGE);
-			System.exit(1);
-		}
-		return(fileName);		// Return filename to function
-		*/
-	}
+		    try
+		    {
+		      if ((this.fileLoadTable == null)) {
+		  		
+		        JFileChooser fileChooser = new JFileChooser(".");
+
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				
+			 fileChooser.showSaveDialog(this);
+		      this.fileLoadTable = fileChooser.getSelectedFile();
+		      setTitle(prosjekt1.getMessages().getString("title") + this.fileLoadTable.getName());
+		      }
+		      Object objLocalFile = new RandomAccessFile(this.fileLoadTable, "rw");	// Generate file
+		      this.t2.saveToFile((RandomAccessFile)objLocalFile); // Write data to file
+		      ((RandomAccessFile)objLocalFile).close();
+		    } catch (Exception e) {
+		      logger.log(Level.WARNING,"Feil under lagring til fil : " + e.toString());
+		    }
+		  }
 
 }
 
