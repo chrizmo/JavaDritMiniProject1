@@ -48,12 +48,12 @@ import javax.swing.*;
  * Add row to table
  */
 public void insertRow() {
-this.data.add("nils"+this.data.size());
+//this.data.addElement("nils"+this.data.size());
 
+//fireTableRowsInserted(this.data.size() - 1, this.data.size() - 1);
+this.data.add(new componentJLabel("ny" + this.data.size(), "", 1, 1, 1, 1));
 fireTableRowsInserted(this.data.size() - 1, this.data.size() - 1);
-	data.addElement(new componentJLabel("ny" + this.data.size(), "", 1, 1, 1, 1));
-	fireTableRowsInserted(this.data.size() - 1, this.data.size() - 1);
-	logger.log(Level.FINE,"Ny rad på posisjon " + (this.data.size() - 1));
+	logger.log(Level.FINE,"Ny rad p√• posisjon " + (this.data.size() - 1));
 }
 
 // Delete a row
@@ -121,12 +121,11 @@ return this.columnNames[col].toString();
 public Object getValueAt(int row, int col) {
    //return ((component)this.data.elementAt(row)).getcolumn(col);
     //return ((Komponent)this.data.elementAt(paramInt1)).getKolonne(paramInt2);
-return (((component)data.elementAt(row)).getType());
+    //return ((component)this.data.elementAt(row)).getcolumn(col);
 	
-//return this.data.elementAt(row);
+return this.data.elementAt(row);
 }
 
-// Set cell to editable
 
 /**
  * Check if the cell is editable
@@ -137,7 +136,7 @@ return (((component)data.elementAt(row)).getType());
  * @return bool
  */
 public boolean isCellEditable(int row, int col) {
-	return true; // TODO: Dette kan ikke være riktig? Christer 
+	return true; // TODO: Dette kan ikke v√¶re riktig? Christer 
 }
         
 
@@ -147,51 +146,42 @@ public boolean isCellEditable(int row, int col) {
  * @param row the row to return the cell from
  * @param coloumn of the cell to return
  */
-public void setValueAt(Object paramObject, int row, int col)
+public void setValueAt(Object object1, int row, int col)
 {
   if (col == 0) {
-    int i = ((Integer)paramObject).intValue();
-    Object localObject = null;
+    int i = ((Integer)object1).intValue();
     switch (i) {
     case 0:
-      localObject = new componentJLabel((component)this.data.elementAt(row));
-      this.data.setElementAt(new componentJLabel((component)this.data.elementAt(row)), row);
+    	this.data.setElementAt(new JLabel("iu"), row);
+      //this.data.setElementAt(new componentJLabel((component)this.data.elementAt(row)), row);
       break;
     case 1:
-      //localObject = new componentJButton((component)this.data.elementAt(row));
-      this.data.setElementAt(localObject, row);
+      this.data.setElementAt(new componentJButton((component)this.data.elementAt(row)), row);
       break;
     case 2:
-      //localObject = new componentJTextField((component)this.data.elementAt(row));
-      this.data.setElementAt(localObject, row);
+      this.data.setElementAt(new componentJTextField((component)this.data.elementAt(row)), row);
       break;
     case 3:
-      //localObject = new componentJTextArea((component)this.data.elementAt(row));
-      this.data.setElementAt(localObject, row);
+      this.data.setElementAt(new componentJTextArea((component)this.data.elementAt(row)), row);
       break;
     case 4:
-      //localObject = new componentJCheckBox((component)this.data.elementAt(row));
-      this.data.setElementAt(localObject, row);
+      this.data.setElementAt(new componentJCheckBox((component)this.data.elementAt(row)), row);
       break;
     case 5:
-      //localObject = new componentJList((component)this.data.elementAt(row));
-      this.data.setElementAt(localObject, row);
+      this.data.setElementAt(new componentJList((component)this.data.elementAt(row)), row);
       break;
     case 6:
-      //localObject = new componentJComboBox((component)this.data.elementAt(row));
-      this.data.setElementAt(localObject, row);
+      this.data.setElementAt(new componentJComboBox((component)this.data.elementAt(row)), row);
       break;
     case 7:
-      //localObject = new componentJSpinnerList((component)this.data.elementAt(row));
-      this.data.setElementAt(localObject, row);
+      this.data.setElementAt(new componentJSpinnerList((component)this.data.elementAt(row)), row);
       break;
     case 8:
-      //localObject = new componentJSpinnerNumber((component)this.data.elementAt(row));
-      this.data.setElementAt(localObject, row); }
+      this.data.setElementAt(new componentJSpinnerNumber((component)this.data.elementAt(row)), row); }
   }
   else
   {
-    //((component)this.data.elementAt(row)).setKolonne(col, paramObject);
+    ((component)this.data.elementAt(row)).setcolumn(row, col);
   }
   fireTableCellUpdated(row, col);
 }
@@ -268,7 +258,7 @@ public void openTableFile(RandomAccessFile randAccFile) throws IOException{
 	try {
 		String str = randAccFile.readUTF();
 		if (!str.equals(fileHeader)) {
-			logger.warning("Feil på kontrollstring i filformat, kunne ikke laste inn fil");
+			logger.warning("Feil pÔøΩ kontrollstring i filformat, kunne ikke laste inn fil");
 			JOptionPane.showMessageDialog(null, prosjekt1.getMessages().getString("fileLoad.baddate"), prosjekt1.getMessages().getString("fileLoad.table"), 0);
 			return;
 		}
@@ -290,33 +280,33 @@ public void openTableFile(RandomAccessFile randAccFile) throws IOException{
             localObject = new componentJLabel(localcomponent);
             break;
           case 1:
-            localObject = new componentJButton(localcomponent);
+            //localObject = new componentJButton(localcomponent);
             break;
           case 2:
-            localObject = new componentJTextField(localcomponent);
+        	  //localObject = new componentJTextField(localcomponent);
             ((component)localObject).fraFil(randAccFile);
             break;
           case 3:
-            localObject = new componentJTextArea(localcomponent);
+        	  //localObject = new componentJTextArea(localcomponent);
             ((component)localObject).fraFil(randAccFile);
             break;
           case 4:
-            localObject = new componentJCheckBox(localcomponent);
+        	  //localObject = new componentJCheckBox(localcomponent);
             break;
           case 5:
-            localObject = new componentJList(localcomponent);
+        	  //localObject = new componentJList(localcomponent);
             ((component)localObject).fraFil(randAccFile);
             break;
           case 6:
-            localObject = new componentJComboBox(localcomponent);
+        	  //localObject = new componentJComboBox(localcomponent);
             ((component)localObject).fraFil(randAccFile);
             break;
           case 7:
-            localObject = new componentJSpinnerList(localcomponent);
+        	  //localObject = new componentJSpinnerList(localcomponent);
             ((component)localObject).fraFil(randAccFile);
             break;
           case 8:
-            localObject = new componentJSpinnerNumber(localcomponent);
+        	  //localObject = new componentJSpinnerNumber(localcomponent);
             ((component)localObject).fraFil(randAccFile);
           }
 

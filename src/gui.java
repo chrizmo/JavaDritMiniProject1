@@ -9,6 +9,7 @@ import java.util.*;
 import java.util.logging.*;
 import javax.swing.JButton;
 import javax.swing.JPopupMenu;
+import javax.swing.JPanel;
 /** Class gui. Creates the window with file-menus and buttons
  * @author Jon Arne Westgaard
  */
@@ -16,22 +17,16 @@ public class gui extends JFrame {
 
 	
 	private File fileLoadTable = null;
-
 	private Logger logger = Logger.getLogger("MyLog");		// Logging mechanism
 	final tablemodel t2;							// Our table model used in the system
 	final JTable table1;							// The JTable for use in system
+    	
 	
 	public gui() {		
 		super (prosjekt1.getMessages().getString("title"));
-
-
-
-		evtHandle = new guiEventHandlers();
 		
-
-		final tablemodel t2 = new tablemodel();
-		final JTable table1 = new JTable(t2);
-		
+		guiEventHandlers evtHandle = new guiEventHandlers();
+			
 		//TODO: Decide if this should last
 		t2 = new tablemodel();
 		table1 = new JTable(t2);
@@ -86,7 +81,7 @@ public class gui extends JFrame {
 			JMenuItem previewItem = new JMenuItem(prosjekt1.getMessages().getString("preview"));
 			previewItem.setMnemonic('P');
 			previewItem.setToolTipText(prosjekt1.getMessages().getString("previewttt"));
-			//previewItem.addActionListener(evtHandle.guiPreview())
+			//previewItem.addActionListener(evtHandle.guiPreview());
 			fileMenu.add(previewItem);
 			
 			JMenuItem generateItem = new JMenuItem(prosjekt1.getMessages().getString("genjava"), new ImageIcon("icons/SAVEJAVA.GIF"));
@@ -125,6 +120,7 @@ public class gui extends JFrame {
 			newrowItem.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e)
 	            {
+	            	
 	            	t2.insertRow();
 	            }
 	        }); 
@@ -230,7 +226,7 @@ public class gui extends JFrame {
 		movedownButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-            	// Need to chek if row is already at the bottom
+            	// Need to check if row is already at the bottom
             	t2.moverowdown(table1.getSelectedRow());
             	
             }

@@ -10,22 +10,11 @@ import javax.swing.JFrame;
 
 public class component
 {
-  int row;
-  int column;
-  int columns;
-  int rows;
-  int anchoring;
-  int scale;
-  int type;
-  String anchor;
-  String fill;
-  String variablename;
-  String text;
-  public static String[] TYPE = { "JLabel", "JButton", "JTextField", "JTextArea", "JCheckBox", "JList", "JComboBox", "JSpinnerList", "JSpinnerNumber" };
-
-  public static String[] ANCHORING = { "CENTER", "NORTH", "NORTHEAST", "EAST", "SOUTHEAST", "SOUTH", "SOUTHWEST", "WEST", "NORTHWEST" };
-
-  public static String[] SCALE = { "NONE", "HORIZONTAL", "VERTICAL", "BOTH" };
+  int row, column, columns, rows, anchoring, scale, type;
+  String anchor, fill, variablename, text;
+  public static String[] TYPE = {"JLabel", "JButton", "JTextField", "JTextArea", "JCheckBox", "JList", "JComboBox", "JSpinnerList", "JSpinnerNumber" };
+  public static String[] ANCHORING = {"CENTER", "NORTH", "NORTHEAST", "EAST", "SOUTHEAST", "SOUTH", "SOUTHWEST", "WEST", "NORTHWEST"};
+  public static String[] SCALE = {"NONE", "HORIZONTAL", "VERTICAL", "BOTH" };
 /**
  * Constructor
  */
@@ -46,18 +35,17 @@ public class component
 /**
  * Constructor
  * 
- * @param paramInt1 Row number
- * @param paramInt2 Column number
- * @param paramInt3 Columns number
- * @param paramInt4 Rows number
+ * @param row Row number
+ * @param column Column number
+ * @param cols Columns number
+ * @param rows Rows number
  */
-  public component(int paramInt1, int paramInt2, int paramInt3, int paramInt4)
-  {
+  public component(int row, int column, int cols, int rows) {
     this();
-    this.row = paramInt1;
-    this.column = paramInt2;
-    this.columns = paramInt3;
-    this.rows = paramInt4;
+    this.row = row;
+    this.column = column;
+    this.columns = cols;
+    this.rows = rows;
   }
 /**
  * Constructor with component
@@ -368,7 +356,7 @@ public class component
  */
   public String toString()
   {
-    return "component av type " + getTypeString() + " med variablename " + this.variablename + " på row " + this.row + " i column " + this.column;
+    return "component of type " + getTypeString() + " with variablename " + this.variablename + " on row " + this.row + " in column " + this.column;
   }
 /**
  * 
