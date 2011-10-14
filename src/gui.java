@@ -45,16 +45,19 @@ public class gui extends JFrame {
 			JMenuItem newItem = new JMenuItem(prosjekt1.getMessages().getString("new"), new ImageIcon("icons/NEW.GIF"));
 			newItem.setMnemonic('N');
 			newItem.setToolTipText(prosjekt1.getMessages().getString("newttt"));
+			// ActionListener:
 			newItem.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent evt){
 						t2.ny();
 						gui.this.fileLoadTable = null;
 			}}); // Creates new file, add listener
+			
 			fileMenu.add(newItem);
 		
 			JMenuItem loadItem = new JMenuItem(prosjekt1.getMessages().getString("load"), new ImageIcon("icons/OPENDOC.GIF"));
 			loadItem.setMnemonic('L');
 			loadItem.setToolTipText(prosjekt1.getMessages().getString("loadttt"));
+			// ActionListener:
 			loadItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt){
 					gui.this.openFileDialog();
@@ -64,6 +67,7 @@ public class gui extends JFrame {
 			JMenuItem saveItem = new JMenuItem(prosjekt1.getMessages().getString("save"), new ImageIcon("icons/SAVE.GIF"));
 			saveItem.setMnemonic('S');
 			saveItem.setToolTipText(prosjekt1.getMessages().getString("savettt"));
+			// ActionListener:
 			saveItem.addActionListener(new ActionListener() {
 				public void actionPerformed (ActionEvent evt){
 					gui.this.saveFileDialog();
@@ -75,25 +79,45 @@ public class gui extends JFrame {
 			saveasItem.setMnemonic(KeyEvent.VK_A);
 			saveasItem.setToolTipText(prosjekt1.getMessages().getString("saveasttt"));
 			fileMenu.add(saveasItem);
+			// ActionListener
+			saveasItem.addActionListener(new ActionListener() {
+				public void actionPerformed (ActionEvent evt){
+					gui.this.saveFileDialog();
+				}
+			});
+						
 			
 			fileMenu.addSeparator();
 			
 			JMenuItem previewItem = new JMenuItem(prosjekt1.getMessages().getString("preview"));
 			previewItem.setMnemonic('P');
 			previewItem.setToolTipText(prosjekt1.getMessages().getString("previewttt"));
-			//previewItem.addActionListener(evtHandle.guiPreview());
 			fileMenu.add(previewItem);
+			// ActionListener:
+			saveItem.addActionListener(new ActionListener() {
+				public void actionPerformed (ActionEvent evt){
+				//	gui.this.saveFileDialog();
+				}
+			});
 			
 			JMenuItem generateItem = new JMenuItem(prosjekt1.getMessages().getString("genjava"), new ImageIcon("icons/SAVEJAVA.GIF"));
 			generateItem.setMnemonic(KeyEvent.VK_J);
 			generateItem.setToolTipText(prosjekt1.getMessages().getString("genjavattt"));
 			fileMenu.add(generateItem);
+			// ActionListener:
+			saveItem.addActionListener(new ActionListener() {
+				public void actionPerformed (ActionEvent evt){
+					gui.this.saveFileDialog();
+				}
+			});
+			
 			
 			fileMenu.addSeparator();
 			
 			JMenuItem exitItem = new JMenuItem(prosjekt1.getMessages().getString("exit"));
 			exitItem.setMnemonic('E');
 			exitItem.setToolTipText(prosjekt1.getMessages().getString("exitttt"));
+			// ActionListener:
 			exitItem.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent evt){
 					int answer = JOptionPane.showConfirmDialog(gui.this, prosjekt1.getMessages().getString("msgQuitConfirmation"),prosjekt1.getMessages().getString("title"), JOptionPane.YES_NO_CANCEL_OPTION);
@@ -117,20 +141,20 @@ public class gui extends JFrame {
 			JMenuItem newrowItem = new JMenuItem(prosjekt1.getMessages().getString("newrow"), new ImageIcon("icons/NEWROW.GIF"));
 			newrowItem.setToolTipText(prosjekt1.getMessages().getString("newrowttt"));
 			editMenu.add(newrowItem);
+			// ActionListener:
 			newrowItem.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e)
 	            {
-	            	
 	            	t2.insertRow();
 	            }
 	        }); 
-			
 			
 			editMenu.addSeparator();
 		
 			JMenuItem preferencesItem = new JMenuItem(prosjekt1.getMessages().getString("preferences"));
 			preferencesItem.setMnemonic('P');
 			preferencesItem.setToolTipText(prosjekt1.getMessages().getString("preferencesttt"));
+			// ActionListener:
 			preferencesItem.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent evt){
 					new guiPrefs();
@@ -150,6 +174,7 @@ public class gui extends JFrame {
 			helpItem.setMnemonic('H');
 			helpItem.setToolTipText(prosjekt1.getMessages().getString("helpttt"));
 			helpMenu.add(helpItem);
+			// ActionListener:
 			helpItem.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent evt){
 					JOptionPane.showMessageDialog(gui.this,"Fukcing google it!","Please...",JOptionPane.INFORMATION_MESSAGE);
@@ -160,7 +185,12 @@ public class gui extends JFrame {
 			JMenuItem aboutItem = new JMenuItem(prosjekt1.getMessages().getString("about"));
 			aboutItem.setMnemonic('A');
 			aboutItem.setToolTipText(prosjekt1.getMessages().getString("aboutttt"));
-			aboutItem.addActionListener(new guiAbout());
+			aboutItem.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent evt){
+					JOptionPane.showMessageDialog(null, "Created by Christer Vaskinn and Jon Arne Westgaard","About",JOptionPane.INFORMATION_MESSAGE);
+				}
+			});
+			
 			helpMenu.add(aboutItem);
 			
 		bar.add(helpMenu);
@@ -174,7 +204,29 @@ public class gui extends JFrame {
 			public void actionPerformed(ActionEvent evt){
 				gui.this.openFileDialog();
 	}}); // Loads new file, add listener
+		
 		loadButton.setToolTipText(prosjekt1.getMessages().getString("loadttt"));
+		// Actionlistener:
+		newButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+            	t2.ny();
+            	gui.this.fileLoadTable = null;
+            }	
+        }); 
+		
+		JButton saveButton = new JButton(new ImageIcon("icons/SAVE.GIF"));
+		saveButton.setToolTipText(prosjekt1.getMessages().getString("savettt"));
+		// Actionlistener:
+		saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+            	gui.this.saveFileDialog();
+            }
+        }); 
+		
+		JButton previewButton = new JButton(new ImageIcon("icons/ExecuteProject.gif"));
+		previewButton.setToolTipText(prosjekt1.getMessages().getString("previewttt"));
 		// Actionlistener:
 		newButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -184,16 +236,16 @@ public class gui extends JFrame {
             }
         }); 
 		
-		JButton saveButton = new JButton(new ImageIcon("icons/SAVE.GIF"));
-		saveButton.setToolTipText(prosjekt1.getMessages().getString("savettt"));
-		
-		
-		JButton previewButton = new JButton(new ImageIcon("icons/ExecuteProject.gif"));
-		previewButton.setToolTipText(prosjekt1.getMessages().getString("previewttt"));
-		
-		
 		JButton generateButton = new JButton(new ImageIcon("icons/SAVEJAVA.GIF"));
 		generateButton.setToolTipText(prosjekt1.getMessages().getString("previewttt"));
+		// Actionlistener:
+		newButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+            	t2.ny();
+            	gui.this.fileLoadTable = null;
+            }
+        }); 
 		
 		JButton newrowButton = new JButton(new ImageIcon("icons/NEWROW.GIF"));
 		newrowButton.setToolTipText(prosjekt1.getMessages().getString("newrowttt"));
@@ -233,6 +285,11 @@ public class gui extends JFrame {
         }); 
 		JButton aboutButton = new JButton(new ImageIcon("icons/HELP.GIF"));
 		aboutButton.setToolTipText(prosjekt1.getMessages().getString("helpttt"));
+		aboutButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent evt){
+				JOptionPane.showMessageDialog(null, "Created by Christer Vaskinn and Jon Arne Westgaard","About",JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 	
 		
 		ikoner.add(newButton);
